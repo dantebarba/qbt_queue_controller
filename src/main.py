@@ -13,7 +13,7 @@ def start():
     if "BUILD_VERSION" in os.environ.keys():
         logging.info("BUILD VERSION IS %s", os.environ["BUILD_VERSION"])
 
-    if not os.environ["CRON"]:
+    if not "CRON" in os.environ.keys():
         raise AssertionError("Cron expression is not set")
 
     logging.debug(
@@ -34,7 +34,7 @@ def configure(log_level='INFO'):
     handler.setFormatter(formatter)
     root.addHandler(handler)
 
-    if os.environ["LOG_FILE"]:
+    if "LOG_FILE" in os.environ.keys():
         fh = logging.FileHandler(os.environ["LOG_FILE"])
         fh.setLevel(eval("logging."+log_level))
         fh.setFormatter(formatter)

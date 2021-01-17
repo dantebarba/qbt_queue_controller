@@ -46,9 +46,9 @@ def get_free_space(directory="/"):
     return hdd.free
 
 def healthcheck_failure():
-    if os.environ["HEALTHCHECK_URL"]:
+    if "HEALTHCHECK_URL" in os.environ.keys():
         requests.get(os.environ["HEALTHCHECK_URL"] + '/fail')
 
 def healthcheck_ok():
-    if os.environ["HEALTHCHECK_URL"]:
-        requests.get(os.environ["HEALTHCHECK_URL"] + '/fail')
+    if "HEALTHCHECK_URL" in os.environ.keys():
+        requests.get(os.environ["HEALTHCHECK_URL"])
