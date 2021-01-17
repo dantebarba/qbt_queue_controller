@@ -8,5 +8,5 @@ def pause_all():
     qbt_client.torrents.pause.all()
     
 def resume_all():
-    qbt_client.torrents.resume.all()
-
+    for torrent in qbt_client.torrents.info.paused():
+        torrent.resume()
