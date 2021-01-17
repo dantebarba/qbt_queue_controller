@@ -15,7 +15,7 @@ ENV QBT_USERNAME admin
 ENV QBT_PASS adminadmin
 ENV LOG_LEVEL 'INFO'
 ENV LOG_FILE '/var/log/qbt_queue_controller.log'
-ENV CRON '* * * * *'
+ENV INTERVAL '15'
 ENV TZ 'America/Argentina/Buenos_Aires'
 
 ADD . .

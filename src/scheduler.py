@@ -11,7 +11,7 @@ def do_nothing():
 def configure(cron_expression, task=do_nothing):
     ''' Configures the scheduler given a cron_expression and a task to execute '''
     logging.debug("Configuring scheduler with %s", cron_expression)
-    sched.add_job(task, CronTrigger.from_crontab(cron_expression))
+    sched.add_job(task, 'interval', seconds=int(cron_expression))
 
 def start():
     logging.debug("Starting BlockingScheduler")

@@ -13,13 +13,13 @@ def start():
     if "BUILD_VERSION" in os.environ.keys():
         logging.info("BUILD VERSION IS %s", os.environ["BUILD_VERSION"])
 
-    if not "CRON" in os.environ.keys():
+    if not "INTERVAL" in os.environ.keys():
         raise AssertionError("Cron expression is not set")
 
     logging.debug(
         "Scheduler is enabled. Task will be scheduled to run at %s", os.environ["CRON"])
 
-    scheduler.configure(os.environ["CRON"], pause_on_low_space)
+    scheduler.configure(os.environ["INTERVAL"], pause_on_low_space)
     scheduler.start()
 
 
