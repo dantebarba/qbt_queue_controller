@@ -41,6 +41,7 @@ def human_read_to_byte(size):
 def get_free_space(directory="/"):
     ''' checks the disk usage '''
     hdd = psutil.disk_usage(directory)
+    logging.debug("Free space is: %s", str(hdd.free))
     return hdd.free
 
 def healthcheck_failure():
