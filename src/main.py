@@ -17,7 +17,7 @@ def start():
         raise AssertionError("Cron expression is not set")
 
     logging.debug(
-        "Scheduler is enabled. Task will be scheduled to run at %s", os.environ["CRON"])
+        "Scheduler is enabled. Task will be scheduled to run at %s", os.environ["INTERVAL"])
 
     scheduler.configure(os.environ["INTERVAL"], pause_on_low_space)
     scheduler.start()
