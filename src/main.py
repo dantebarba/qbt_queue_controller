@@ -1,6 +1,5 @@
 import qbt_api
 import helpers
-import requests
 import logging
 import os
 import sys
@@ -45,12 +44,12 @@ def pause_on_low_space():
     if helpers.get_free_space() < space_threshold:
         qbt_api.pause_all()
         logging.debug("Pausing all downloads")
-        requests.get(os.environ["HEALTHCHECK_URL"] + '/fail')
+        helpers.healthcheck_failure()
     
     if helpers.get_free_space() >= space_threshold:
         qbt_api.resume_all()
         logging.debug("Resuming all downloads")
-        requests.get(os.environ["HEALTHCHECK_URL"])
+        helpers.healthcheck_ok()
 
 
 # def check_torrents_queue():

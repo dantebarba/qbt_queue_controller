@@ -1,4 +1,6 @@
 import psutil
+import requests
+import os
 
 UNITS_MAPPING = [
     (1 << 50, 'P'),
@@ -40,3 +42,11 @@ def get_free_space(directory="/"):
     ''' checks the disk usage '''
     hdd = psutil.disk_usage(directory)
     return hdd.free
+
+def healthcheck_failure():
+    if os.environ["HEALTHCHECK_URL"]:
+        requests.get(os.environ["HEALTHCHECK_URL"] + '/fail')
+
+def healthcheck_ok():
+    if os.environ["HEALTHCHECK_URL"]:
+        requests.get(os.environ["HEALTHCHECK_URL"] + '/fail')
