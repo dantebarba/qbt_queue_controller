@@ -1,0 +1,20 @@
+version: "3.4"
+# Define common behavior
+x-qbt-queue-controller:
+  &default-qbt-queue-controller
+  build: 
+    context: .
+    args:
+      BUILD_VERSION: ${BUILD_VERSION}
+  # Other settings can also be shared
+  image: dantebarba/qbt-queue-controller:latest
+
+# Define one service by wanted tag
+services:
+  # Use the extension as is
+  qbt-queue-latest:
+    *default-qbt-queue-controller
+  # Override the image tag
+  qbt-queue-tag:
+    << : *default-qbt-queue-controller
+    image: dantebarba/qbt-queue-controller:${BUILD_VERSION}
