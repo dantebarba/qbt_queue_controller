@@ -52,29 +52,5 @@ def pause_on_low_space():
         logging.debug("Resuming all downloads")
         helpers.healthcheck_ok()
 
-
-# def check_torrents_queue():
-#     blocked_torrents = []
-#     torrents = []
-#     if helpers.get_free_space() < space_threshold:
-#         qbt_api.pause_all()
-
-#     if helpers.get_free_space() >= space_threshold:
-#         pass
-#         if torrents.downloading():
-#             for download in torrents.downloading():
-#                 if download.remaining_space() > helpers.get_free_space() - buffer:
-#                     blocked_torrents.append(download)
-
-#             active_torrents = torrents.downloading() - blocked_torrents
-
-#             if len(active_torrents) == 1:
-#                 qbt_api.pause_all()
-#                 active_torrents[0].resume()
-        
-#         if not torrents.downloading() and helpers.get_free_space() > buffer:
-#             qbt_api.resume_all()
-
-
 if __name__ == '__main__':
     start()
