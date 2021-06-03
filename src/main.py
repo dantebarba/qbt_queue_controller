@@ -1,4 +1,5 @@
 import qbt_api
+import nzb_api
 import helpers
 import logging
 import os
@@ -19,7 +20,7 @@ def start():
     logging.debug(
         "Scheduler is enabled. Task will be scheduled to run at %s", os.environ["INTERVAL"])
 
-    scheduler.configure(os.environ["INTERVAL"], pause_on_low_space)
+    scheduler.configure(os.environ["INTERVAL"], pause_verify_nzb)
     scheduler.start()
 
 
@@ -40,17 +41,25 @@ def configure(log_level='INFO'):
         fh.setFormatter(formatter)
         root.addHandler(fh)
 
+def pause_all():
+    qbt_api.pause_all()
+    logging.debug("Pausing all downloads")
+    helpers.healthcheck_failure()
+
 def pause_on_low_space():
     logging.debug("Space threshold is: %s", str(space_threshold))
     if helpers.get_free_space() < space_threshold:
-        qbt_api.pause_all()
-        logging.debug("Pausing all downloads")
-        helpers.healthcheck_failure()
-    
+        pause_all()
     if helpers.get_free_space() >= space_threshold:
         qbt_api.resume_all()
         logging.debug("Resuming all downloads")
         helpers.healthcheck_ok()
+
+def pause_verify_nzb():
+    if os.environ["NZB_HOST"] and not nzb_api.is_paused():
+        pause_all()
+    else:
+        pause_on_low_space()
 
 if __name__ == '__main__':
     start()

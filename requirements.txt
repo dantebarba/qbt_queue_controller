@@ -3,3 +3,4 @@ psutil==5.7.2
 requests==2.24.0
 apscheduler==3.6.3
 qbittorrent-api==2020.12.15
+pynzbgetapi==0.2.0

@@ -13,6 +13,9 @@ ENV QBT_HOST http://qbittorrent
 ENV QBT_PORT 8080
 ENV QBT_USERNAME admin
 ENV QBT_PASS adminadmin
+ENV NZB_HOST ""
+ENV NZB_USERNAME ""
+ENV NZB_PASSWORD ""
 ENV LOG_LEVEL 'INFO'
 ENV LOG_FILE '/var/log/qbt_queue_controller.log'
 ENV INTERVAL '15'
