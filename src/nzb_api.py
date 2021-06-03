@@ -6,6 +6,7 @@ ng_api = pynzbgetapi.NZBGetAPI(os.environ["NZB_HOST"], os.environ["NZB_USERNAME"
 
 def is_paused():
     try:
+        # RemainingSizeMB PostPaused
         return ng_api.status()["ServerStandBy"]
     except Exception as ex:
         logging.exception("Could not connect to NZBGet: {}".format(str(ex)))
