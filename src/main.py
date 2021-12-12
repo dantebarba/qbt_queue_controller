@@ -44,7 +44,7 @@ def configure(log_level='INFO'):
 def pause_all():
     qbt_api.pause_all()
     logging.debug("Pausing all downloads")
-    helpers.healthcheck_failure()
+    helpers.healthcheck_ok()
 
 def pause_on_low_space():
     logging.debug("Space threshold is: %s", str(space_threshold))
