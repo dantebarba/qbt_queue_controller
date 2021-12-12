@@ -28,9 +28,9 @@ def configure(log_level='INFO'):
     root = logging.getLogger()
     formatter = logging.Formatter(
         '%(asctime)s - %(levelname)s - %(name)s - %(message)s')
-    root.setLevel(eval("logging."+log_level))
+    root.setLevel(eval("logging.{}".format(log_level)))
     handler = logging.StreamHandler(sys.stdout)
-    handler.setLevel(eval("logging."+log_level))
+    handler.setLevel(eval("logging.{}".format(log_level)))
 
     handler.setFormatter(formatter)
     root.addHandler(handler)
@@ -50,13 +50,14 @@ def pause_on_low_space():
     logging.debug("Space threshold is: %s", str(space_threshold))
     if helpers.get_free_space() < space_threshold:
         pause_all()
+        helpers.healthcheck_failure()
     if helpers.get_free_space() >= space_threshold:
         qbt_api.resume_all()
         logging.debug("Resuming all downloads")
         helpers.healthcheck_ok()
 
 def pause_verify_nzb():
-    if os.environ["NZB_HOST"] and not nzb_api.is_paused():
+    if os.environ["NZB_HOST"] and nzb_api.queue():
         pause_all()
     else:
         pause_on_low_space()
